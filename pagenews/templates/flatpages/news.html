@@ -1,0 +1,43 @@
+Так вот!
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}!
+{% load censor_filters %}
+{% load custom_tags %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+    <h1>Все Новости</h1>
+    <h3>{% current_time '%b %d %Y %A' %}</h3>
+    <h4>{{ next_sale|default_if_none:"Потом расскажу, как вспахал." }}</h4>
+    <td><h5>Количество новостей: {{ news|length }}</h5></td>
+    <hr>
+    {% if news %}
+        <table>
+            <tr>
+                <td>Заголовок</td>
+                <td>Дата</td>
+                <td>Описание</td>
+                <td>Текст</td>
+                <td>Категория</td>
+                <td>Стоимость</td>
+                <td>Количество</td>
+            </tr>
+            {% for news in news %}
+            <tr>
+                <td>{{ news.title_news|censor }}</td>
+                <td>{{ time_now|date:'d M Y' }}</td>
+                <td>{{ news.description_news }}</td>
+                <td>{{ news.text_news|truncatewords:11|censor }}</td>
+                <td>{{ news.category_news }}</td>
+                <td>{{ news.cost_news|currency:"rub" }}</td>
+                <td>{{ news.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Новостей нет</h2>
+    {% endif %}
+{% endblock content %}
