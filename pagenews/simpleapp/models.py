@@ -11,7 +11,7 @@ class News(models.Model):
     category_news = models.ForeignKey(to='Category', on_delete=models.CASCADE,
                                       related_name='news', )
     cost_news = models.FloatField(validators=[MinValueValidator(0.0)], )
-    #datetime_news = models.DateTimeField(auto_now_add=True, )
+    datetime_news = models.DateTimeField(auto_now_add=True, )
 
 
     def __str__(self):
