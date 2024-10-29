@@ -6,28 +6,29 @@
 {% block title %}
 News
 {% endblock title %}
-`
+
 {% block content %}
     <h1>Новость</h1>
     <h3>{% current_time '%b %d %Y %A' %}</h3>
     <h4>{{ next_sale|default_if_none:"Потом расскажу, как вспахал." }}</h4>
-    <td><h4>Кол-во новостей: {{ news|length }}</h4></td>
+
     <hr>
-    {% if news_id %}
+
         <table>
             <tr>
                 <td>Заголовок</td>
+                <td>Автор</td>
                 <td>Текст</td>
+                <td>Дата</td>
             </tr>
-            {% for news_id in news %}
+
             <tr>
-                <td>{{ news.title_news }}</td>
-                <td>{{ news.text_news }}</td>
+                <td>{{ news_id.title_news|censor }}</td>
+                <td>{{ news_id.text_news|censor }}</td>
+                <td>{{ news_id.datetime_news }}</td>
             </tr>
-            {% endfor %}
+
         </table>
-    {% else %}
-        <h2>Новостей нет</h2>
-    {% endif %}
+
 
 {% endblock content %}
